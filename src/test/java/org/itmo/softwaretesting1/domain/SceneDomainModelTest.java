@@ -10,7 +10,6 @@ class SceneDomainModelTest {
     void trillianGrabsArthurAndPullsToDoor() {
         Trillian trillian = new Trillian();
         Arthur arthur = new Arthur();
-//        Door door = new Door();
         assertEquals(trillian.getState(), Trillian.trillianState.DONT_HOLDING_ARTHUR);
         assertEquals(trillian.grabArthur(arthur), Trillian.trillianState.HOLDING_ARTHUR);
 
@@ -44,9 +43,9 @@ class SceneDomainModelTest {
 
         assertEquals("Дверь в истории откроется только с 3-го раза", exceptionZap.getMessage());
 
-        assertEquals(ford.tryOpenDoor(), Door.doorState.OPEN, "Дверь должна открыться с 3-й попытки");
+        assertEquals(door.attemptOpen(ford), Door.doorState.OPEN, "Дверь должна открыться с 3-й попытки");
 
-        RuntimeException exception = assertThrows(RuntimeException.class, ford::tryOpenDoor);
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> door.attemptOpen(ford));
 
         assertEquals("Дверь уже открыта", exception.getMessage());
     }

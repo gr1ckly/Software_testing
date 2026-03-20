@@ -3,7 +3,7 @@ package org.itmo.softwaretesting1.domain;
 public class SceneNarration {
 
     public static void main(String[] args) {
-        Door door = new Door("выход");
+        Door door = new Door();
         Arthur arthur = new Arthur();
         Trillian trillian = new Trillian();
         Ford ford = new Ford(door);
@@ -19,7 +19,7 @@ public class SceneNarration {
         trillian.grabArthur(arthur);
 
         System.out.println("Триллиан тянет Артура к двери, которую Форд и Зафод пытаются открыть.");
-        trillian.pullArthurToDoor(door);
+        trillian.pullArthurToDoor();
 
         System.out.println("Форд пытается открыть дверь.");
         ford.tryOpenDoor();
