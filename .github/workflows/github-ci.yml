@@ -1,0 +1,38 @@
+name: GitHub CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    name: Build and test (${{ matrix.module_name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - module_name: root
+            pom_path: pom.xml
+            java_version: "17"
+          - module_name: lab-1-module
+            pom_path: 1/pom.xml
+            java_version: "25"
+          - module_name: lab-2-module
+            pom_path: 2/pom.xml
+            java_version: "17"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java_version }}
+          cache: maven
+
+      - name: Build and run unit tests
+        run: mvn -B -ntp -f "${{ matrix.pom_path }}" clean verify
