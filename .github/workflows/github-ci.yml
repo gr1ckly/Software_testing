@@ -13,14 +13,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - module_name: root
-            pom_path: pom.xml
-            java_version: "17"
-          - module_name: lab-1-module
+          - module_name: task-1
             pom_path: 1/pom.xml
             java_version: "25"
-          - module_name: lab-2-module
+          - module_name: task-2
             pom_path: 2/pom.xml
+            java_version: "17"
+          - module_name: task-3
+            pom_path: pom.xml
             java_version: "17"
 
     steps:
