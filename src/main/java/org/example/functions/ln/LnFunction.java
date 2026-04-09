@@ -19,7 +19,7 @@ public class LnFunction implements AbstractFunction {
 
         int exponent = Math.getExponent(x);
         double mantissa = x / Math.scalb(1.0, exponent);
-        if (mantissa < 1.0) {
+        while (mantissa < 1.0) {
             mantissa *= 2.0;
             exponent--;
         }

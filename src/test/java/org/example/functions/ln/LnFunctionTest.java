@@ -62,6 +62,14 @@ class LnFunctionTest {
         assertEquals(expected, actual, 1.0E-9);
     }
 
+    @ParameterizedTest
+    @MethodSource("subnormalValues")
+    void subnormalValuesMantissaNormalizationTest(double x) {
+        double actual = lnFunction.calculate(x, TEST_ACCURACY);
+
+        assertEquals(Math.log(x), actual, 1.0E-9);
+    }
+
     private static Stream<Arguments> baseValues() {
         return Stream.of(
                 Arguments.of(0.125, -2.0794415416798357),
@@ -88,6 +96,14 @@ class LnFunctionTest {
                 Arguments.of(1.0E12, 27.631021115928547),
                 Arguments.of(1.0E100, 230.25850929940458),
                 Arguments.of(8.988465674311579E307, 709.0895657128241)
+        );
+    }
+
+    private static Stream<Arguments> subnormalValues() {
+        return Stream.of(
+                Arguments.of(Double.MIN_VALUE),
+                Arguments.of(Double.MIN_NORMAL / 2.0),
+                Arguments.of(Math.nextUp(Double.MIN_VALUE))
         );
     }
 }

@@ -56,6 +56,14 @@ class SinFunctionTest {
         assertEquals(expected, actual, 1.0E-8);
     }
 
+    @ParameterizedTest
+    @ValueSource(doubles = {0.125, -0.125})
+    void returnsInitialTermWhenAbsoluteXEqualsAccuracy(double x) {
+        double actual = sinFunction.calculate(x, Math.abs(x));
+
+        assertEquals(x, actual, 0.0);
+    }
+
     private static Stream<Arguments> baseValues() {
         return Stream.of(
                 Arguments.of(-6.283185307179586, 2.4492935982947064E-16),
